@@ -1,0 +1,72 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    compileOnly 'io.github.nkaaf:annotationprocessor:1.0'
+    annotationProcessor 'io.github.nkaaf:annotationprocessor:1.0'
+}
+
+java {
+    modularity.inferModulePath.set(true)
+}
+
+/*
+    This buildscript is for universal compatibility only. You can use your desired release flag. However, you must
+    follow some rules, caused by bugs:
+        - release flag 9 cannot be used because of a Java Bug that has been fixed in JDK 10.
+        see: https://github.com/gradle/gradle/issues/15267
+        see: https://bugs.openjdk.java.net/browse/JDK-8139607
+
+        - release flag 10 can be used, but only with JDK 12 and later because of a bug in earlier JDK versions.
+        see: https://bugs.openjdk.java.net/browse/JDK-8209865
+
+        - If the project must use JDK 11, the release flag 11 can be set. The previously mentioned bugs are only for
+        release flags less than 11 and JDK less than 12.
+
+        This means that only these combinations would work:
+            - JDK 11 with release flag 11
+            - JDK 12+ with release flag 10 until JDK Version
+
+        JDK 9 and JDK 10 cannot be used!
+
+    Example:
+        compileJava {
+            options.release.set(11) // >= Gradle 6.6
+            options.compilerArgs.addAll(['--release', '11']) // < Gradle 6.6
+        }
+ */
+compileJava {
+    String currentJavaVersion = JavaVersion.current().toString()
+    currentJavaVersion = Double.parseDouble(currentJavaVersion) < 2 ? currentJavaVersion.substring(2) : currentJavaVersion
+
+    if (versionGreaterOrEquals(gradle.gradleVersion, "6.6")) {
+        currentJavaVersion.toInteger() == 11 ? options.release.set(11) : options.release.set(currentJavaVersion)
+    } else {
+        currentJavaVersion.toInteger() == 11 ? options.compilerArgs.addAll(['--release', '11']) : options.compilerArgs.addAll(['--release', currentJavaVersion.toString()])
+    }
+}
+
+private static boolean versionGreaterOrEquals(String versionOne, String versionTwo) {
+    if (versionOne == null || versionTwo == null) {
+        throw new IllegalArgumentException("Versions to compare cannot be null")
+    }
+    String[] first = versionOne.split("\\.")
+    String[] second = versionTwo.split("\\.")
+    int maxLength = Math.max(first.length, second.length);
+    for (int i = 0; i < maxLength; i++) {
+        int firstComp = i < first.length ? Integer.parseInt(first[i]) : 0
+        int secondComp = i < second.length ? Integer.parseInt(second[i]) : 0
+        if (firstComp > secondComp) {
+            return true
+        }
+        if (firstComp < secondComp) {
+            return false
+        }
+    }
+    return true
+}

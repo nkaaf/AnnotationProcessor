@@ -1,0 +1,47 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    compileOnly 'io.github.nkaaf:annotationprocessor:1.0'
+    annotationProcessor 'io.github.nkaaf:annotationprocessor:1.0'
+}
+
+/*
+    This buildscript is for universal compatibility only. You can use your desired targetCompatibility and
+    sourceCompatibility. However, you must follow some rules:
+        - If you compile your project with a JDK greater or equals 8, the targetCompatibility and sourceCompatibility
+        cannot have a value less than 1.3.
+
+        - If you compile your project with a JDK greater or equals 9, the targetCompatibility and sourceCompatibility
+        cannot have a value less than 6 (1.6).
+
+        - If you compile your project with a JDK greater or equals 12, the targetCompatibility and sourceCompatibility
+         cannot have a value less than 7 (1.7).
+
+    Example:
+        compileJava {
+            targetCompatibility = "6"
+            sourceCompatibility = "6"
+        }
+ */
+compileJava {
+    String currentJavaVersion = JavaVersion.current().toString()
+    currentJavaVersion = Double.parseDouble(currentJavaVersion) < 2 ? currentJavaVersion.substring(2) : currentJavaVersion
+
+    int minVersion
+    if (currentJavaVersion.toInteger() >= 12) {
+        minVersion = 7
+    } else if (currentJavaVersion.toInteger() >= 9) {
+        minVersion = 6
+    } else {
+        minVersion = 3
+    }
+
+    targetCompatibility = currentJavaVersion.toInteger() > minVersion ? currentJavaVersion : minVersion == 3 ? "1.3" : minVersion
+    sourceCompatibility = currentJavaVersion.toInteger() > minVersion ? currentJavaVersion : minVersion == 3 ? "1.3" : minVersion
+}
