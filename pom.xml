@@ -20,14 +20,12 @@
   <http://www.gnu.org/licenses/lgpl-2.1.html>.
   #L%
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.nkaaf</groupId>
     <artifactId>annotationprocessor</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <name>AnnotationProcessor</name>
     <description>Project for easy creation of Annotation Processors</description>
@@ -182,7 +180,7 @@
         <url>https://github.com/nkaaf/AnnotationProcessor</url>
         <connection>scm:git:git@github.com:nkaaf/AnnotationProcessor</connection>
         <developerConnection>scm:git:git@github.com:nkaaf/AnnotationProcessor</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0</tag>
     </scm>
 
     <distributionManagement>
