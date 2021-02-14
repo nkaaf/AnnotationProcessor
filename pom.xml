@@ -25,7 +25,7 @@
 
     <groupId>io.github.nkaaf</groupId>
     <artifactId>annotationprocessor</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
 
     <name>AnnotationProcessor</name>
     <description>Project for easy creation of Annotation Processors</description>
@@ -180,7 +180,7 @@
         <url>https://github.com/nkaaf/AnnotationProcessor</url>
         <connection>scm:git:git@github.com:nkaaf/AnnotationProcessor</connection>
         <developerConnection>scm:git:git@github.com:nkaaf/AnnotationProcessor</developerConnection>
-        <tag>v1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
