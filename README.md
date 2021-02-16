@@ -1,22 +1,14 @@
 # Annotation Processor
 
-![License](https://img.shields.io/github/license/nkaaf/AnnotationProcessor)
+[![License](https://img.shields.io/github/license/nkaaf/AnnotationProcessor)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)
 
-![Libraries.io SourceRank](https://img.shields.io/librariesio/sourcerank/maven/io.github.nkaaf:annotationprocessor)
-![GitHub all releases](https://img.shields.io/github/downloads/nkaaf/AnnotationProcessor/total)
+[![GitHub all releases](https://img.shields.io/github/downloads/nkaaf/AnnotationProcessor/total)](https://github.com/nkaaf/AnnotationProcessor/releases)
 
-![Dependent repos (via libraries.io)](https://img.shields.io/librariesio/dependent-repos/maven/io.github.nkaaf:annotationprocessor)
-![Dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/nkaaf/io.github.nkaaf:annotationprocessor)
-![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/nkaaf/AnnotationProcessor)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.nkaaf/annotationprocessor)](https://mvnrepository.com/artifact/io.github.nkaaf/annotationprocessor)
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/nkaaf/AnnotationProcessor)
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/nkaaf/AnnotationProcessor)
-
-![Maven Central](https://img.shields.io/maven-central/v/io.github.nkaaf/annotationprocessor)
-
-![GitHub forks](https://img.shields.io/github/forks/nkaaf/AnnotationProcessor?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/nkaaf/AnnotationProcessor?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/nkaaf/AnnotationProcessor?style=social)
+[![GitHub forks](https://img.shields.io/github/forks/nkaaf/AnnotationProcessor?style=social)](https://github.com/nkaaf/AnnotationProcessor/network/members)
+[![GitHub Repo stars](https://img.shields.io/github/stars/nkaaf/AnnotationProcessor?style=social)](https://github.com/nkaaf/AnnotationProcessor/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/nkaaf/AnnotationProcessor?style=social)](https://github.com/nkaaf/AnnotationProcessor/watchers)
 
 ## Index
 
@@ -41,10 +33,10 @@
 
 ## Use Case
 
-In case you want to create a new annotation processor you can use the Annotation <strong>@AnnotationProcessor</strong>
-to automatically create the required <strong>javax.annotation.processing.Processor</strong> file in
+In case you want to create a new annotation processor, you can use the annotation <strong>@AnnotationProcessor</strong>,
+to automatically create the required <strong>javax.annotation.processing.Processor</strong> file in the
 <strong>META-INF/services/</strong> directory at compile time.
-> ❗ To use this correctly look up how to import it to your [Build System](#build-system) and integrate into [Java](#java) ❗
+> ❗ To use this properly, see how to import it into your [Build System](#build-system) and integrate it into [Java](#java) ❗
 
 ## Build System
 
@@ -77,14 +69,14 @@ dependencies {
 
 ## Java
 
-Annotate your AnnotationProcessor with <strong>@AnnotationProcessor</strong>. The Processor behind this annotation
-checks if your Annotation is built compliant ([JSP 269](https://www.jcp.org/en/jsr/detail?id=269)). You can either
-extending the <strong>javax.annotation.processing.AbstractProcessor</strong> or directly implement the
-<strong>javax.annotation.processing.Processor</strong>.
+Annotate your annotation processor with <strong>@AnnotationProcessor</strong>. The processor behind this annotation
+checks if your annotation processor is built conforming ([JSP 269](https://www.jcp.org/en/jsr/detail?id=269)). You can 
+either extend your processor with <strong>javax.annotation.processing.AbstractProcessor</strong> or directly implement 
+it with <strong>javax.annotation.processing.Processor</strong>.
 
 ### Non-Modular
 
-You only have to import the dependency with your build system.
+You only need to import the dependency with your build system.
 > [Maven Example](examples/maven/non-modular/pom.xml)
 >
 > [Gradle Example](examples/gradle/non-modular/build.gradle)
@@ -93,13 +85,13 @@ You only have to import the dependency with your build system.
 
 ### Modular (Java 9+)
 
-You have to add the dependencies' module to the <strong>module-info.java</strong> of the desired module. In addition,
-you have to set it up in your Build System ([Maven](#java-maven)/ [Gradle](#java-gradle)).
+You need to add the dependencies' module in the <strong>module-info.java</strong> of the desired module. In addition,
+you need to set it up in your build system ([Maven](#java-maven)/ [Gradle](#java-gradle)).
 
 #### <a name="java-maven"></a> Maven
 
-Your module only has to require the io.github.nkaaf.annotationprocessor module. It will get the java.compiler module
-automatically, so you don't need to require this as well for your annotation processor.
+Your module only needs to require the io.github.nkaaf.annotationprocessor module. It gets the module java.compiler
+automatically, so you don't need it additionally for your annotation processor.
 
 ```java
 module yourModule {
@@ -107,7 +99,7 @@ module yourModule {
 }
 ```
 
-You have to add the dependency as Annotation Path in maven-compiler-plugin.
+You need to add the dependency as an annotation path in maven-compiler-plugin.
 
 ```xml
 <pluin>
@@ -133,9 +125,9 @@ You have to add the dependency as Annotation Path in maven-compiler-plugin.
 
 #### <a name="java-gradle"></a> Gradle (6.4+)
 
-Your module has to require the io.github.nkaaf.annotationprocessor module.
+Your module must require the io.github.nkaaf.annotationprocessor module.
 
-> ❗ It will NOT get the java.compiler module automatically (other behaviour than in Maven) ❗
+> ❗ It will NOT automatically get the java.compiler module (different behaviour than in Maven) ❗
 
 ```java
 module yourModule {
@@ -143,11 +135,11 @@ module yourModule {
 }
 ```
 
-Also have to turn on module path inference and add the release flag.
+You also need to turn on module path inference and add the release flag.
 
-> ❗ You cannot use the JDK 9 because the release flag causes an error with Gradle. JDK 10 causes another error with
-> Gradle, but the Java 10 release flag can be used with JDK 12. See Bug Tickets linked in Example.
-> But you can use the release flag 11, and a JDK 11 ❗ <br/>
+> ❗ You cannot use JDK 9 because the release flag causes an error with Gradle. JDK 10 causes another error with
+> Gradle, but the Java 10 release flag can be used with JDK 12 and later. See the error tickets linked in example.
+> But you can use the release flag 11, and a JDK 11 ❗
 
 ```groovy
 java {
@@ -171,26 +163,25 @@ compileJava {
 
 ## Developing
 
-To provide maximum compatibility, this project has to be compiled with Java 9.
+To ensure maximum compatibility, this project must be compiled with Java 9.
 
 ### The Problem with Multi-Release JARs and IDEs
 
-Most of the IDEs do not support multi-release jars properly. The problem is that the package and filenames, of both
-(Java and Java9), are identical. The IDEs cannot compile them, even if this mechanism is clearly defined in the Maven
-POM.
+Most IDEs do not support multi-release jars properly. The problem is that the package and class names are identical. The
+IDEs cannot compile them, even though this mechanism is clearly defined in the Maven POM.
 
 **[⬆ Back to Index](#index)**
 
 ### Testing
 
-There is also a problem with the tests. An automatic way to change the JDK, so both versions of the annotation processor
-will be tested, did not exist. My solution is a testing bash script that will compile and test the classes. It depends
-on [SDKMAN!](https://sdkman.io/) and the [Junit Jupiter Engine](https://junit.org/junit5/), which is imported by
-[Maven](https://maven.apache.org/). You can easily run the [test script](src/test/test.sh), with bash, from everywhere
-on your computer. If you have not the required Java Libraries installed in the maven folder, the script will download
-them. This also applied to the Java JDKs with SDKMAN!. The mechanism of changing the JDK with SDKMAN! is not perfect,
-because it depends on hardcoded java versions. These can be deleted everytime in the lists of SDKMAN! without me
-noticing it.
+There is also a problem with the tests. There is no automatic way to change the JDKs, so that both versions of my 
+annotation processor are tested. My solution is a bash script that compiles and tests the classes. It uses 
+[SDKMAN!](https://sdkman.io/) and the [Junit Jupiter Engine](https://junit.org/junit5/), which is imported by
+[Maven](https://maven.apache.org/). You can easily run the [test script](src/test/test.sh) with bash from anywhere on 
+your computer. If you do not have the required Java Libraries installed in the Maven folder, the script downloads them.
+This also applies to the JDKs with SDKMAN!. The mechanism for switching JDKs with SDKMAN! is not perfect for my purpose,
+because it depends on hardcoded Java versions. These can be deleted at any time in the lists of SDKMAN! without me
+notice it.
 
 **[⬆ Back to Index](#index)**
 
