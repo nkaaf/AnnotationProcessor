@@ -82,22 +82,44 @@ mkdir -p "$_out_dir"
 __debug $DEBUG "Output directory generated"
 
 __debug $DEBUG "Check if required commands are available..."
-if [ -f "$HOME/.zshrc" ]; then
-  . "$HOME"/.zshrc
-fi
-
 if [ -f "$HOME/.bashrc" ]; then
-  . "$HOME"/.zshrc
+  . "$HOME/.bashrc"
 fi
 
 if ! command -v sdk >/dev/null; then
-  __echo red "SDKMAN! is not installed. Please install it before using this script."
-  exit 1
+  if [ -f "$HOME/.zshrc" ]; then
+    . "$HOME/.zshrc"
+  fi
 fi
 
+if ! command -v sdk >/dev/null; then
+  __echo red "SDKMAN! is not installed. Would you like to install it now? [Y/n]."
+  read -r answer
+  if [ "$answer" != "Y" ] && [ "$answer" != "y" ]; then
+    __echo red "You can't use this script without SDKMAN! installed!"
+    exit 1
+  fi
+
+  if ! __install_sdkman; then
+    exit 1
+  fi
+
+  . "$HOME/.sdkman/bin/sdkman-init.sh"
+fi
+
+__sdkman_switch_auto_answer_mode true
+
 if ! command -v mvn >/dev/null; then
-  __echo red "Maven is not installed. Please install if before using this script."
-  exit 1
+  __echo red "Maven is not installed. Would you like to install it with SDKMAN! now? [Y/n]."
+  read -r answer
+  if [ "$answer" != "Y" ] && [ "$answer" != "y" ]; then
+    __echo red "You can't use this script without Maven installed!"
+    exit 1
+  fi
+
+  if ! __install_maven; then
+    exit 1
+  fi
 fi
 __debug $DEBUG "All required commands are installed"
 
@@ -111,27 +133,27 @@ _apiguardian_jar="$HOME/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/api
 
 __debug $DEBUG "Check if required libraries are imported, and if not, import them..."
 if [ ! -f "$_junit_jar" ]; then
-  if ! __import_with_maven org.junit.platform:junit-platform-console-standalone:jar:1.7.1; then
+  if ! __import_with_maven org.junit.platform:junit-platform-console-standalone:1.7.1:jar; then
     exit 1
   fi
 fi
 if [ ! -f "$_junit_api_jar" ]; then
-  if ! __import_with_maven org.junit.jupiter:junit-jupiter-api:jar:5.7.1; then
+  if ! __import_with_maven org.junit.jupiter:junit-jupiter-api:5.7.1:jar; then
     exit 1
   fi
 fi
 if [ ! -f "$_junit_platform_jar" ]; then
-  if ! __import_with_maven org.junit.platform:junit-platform-commons:jar:1.7.1; then
+  if ! __import_with_maven org.junit.platform:junit-platform-commons:1.7.1:jar; then
     exit 1
   fi
 fi
 if [ ! -f "$_opentest_jar" ]; then
-  if ! __import_with_maven org.opentest4j:opentest4j:jar:1.2.0; then
+  if ! __import_with_maven org.opentest4j:opentest4j:1.2.0:jar; then
     exit 1
   fi
 fi
 if [ ! -f "$_apiguardian_jar" ]; then
-  if ! __import_with_maven org.apiguardian:apiguardian-api:jar:1.1.0; then
+  if ! __import_with_maven org.apiguardian:apiguardian-api:1.1.0:jar; then
     exit 1
   fi
 fi
@@ -227,14 +249,13 @@ __debug $DEBUG "--- Java 6 cannot be tested, because the junit library requires 
 __debug $DEBUG "--- Java 7 cannot be tested, because the junit library requires at least Java 8"
 
 __debug $DEBUG "Testing with Java 8..."
-_java_8_sdk="8.0.282-zulu"
-if ! sdk use java $_java_8_sdk >/dev/null; then
-  __debug $DEBUG "Required Java 8 SDK does not exists. It will be downloaded..."
-  if ! sdk install java $_java_8_sdk >/dev/null; then
-    __echo red "Could not download Java sdk. Check your network connection."
+_jdk_8_version="8.0.282-zulu"
+if ! sdk use java $_jdk_8_version >/dev/null; then
+  __debug $DEBUG "Required Java 8 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk $_jdk_8_version; then
     exit 1
   fi
-  sdk use java $_java_8_sdk >/dev/null
+  sdk use java $_jdk_8_version >/dev/null
 fi
 _test "8"
 
@@ -243,61 +264,58 @@ __debug $DEBUG "--- Currently (02.2021) there is no Java 9 available at SDKMAN!"
 __debug $DEBUG "--- Currently (02.2021) there is no Java 10 available at SDKMAN!"
 
 __debug $DEBUG "Testing with Java 11..."
-_java_11_sdk="11.0.10-zulu"
-if ! sdk use java $_java_11_sdk >/dev/null; then
-  __debug $DEBUG "Required Java 11 SDK does not exists. It will be downloaded..."
-  if ! sdk install java $_java_11_sdk >/dev/null; then
-    __echo red "Could not download Java sdk. Check your network connection."
+_jdk_11_version="11.0.10-zulu"
+if ! sdk use java $_jdk_11_version >/dev/null; then
+  __debug $DEBUG "Required Java 11 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk $_jdk_11_version; then
     exit 1
   fi
-  sdk use java $_java_11_sdk
+  sdk use java $_jdk_11_version >/dev/null
 fi
 _test "11"
 
 __debug $DEBUG "Testing with Java 12..."
-_java_12_sdk="12.0.2-sapmchn"
-if ! sdk use java $_java_12_sdk >/dev/null; then
-  __debug $DEBUG "Required Java 12 SDK does not exists. It will be downloaded..."
-  if ! sdk install java $_java_12_sdk >/dev/null; then
-    __echo red "Could not download Java 12 SDK. Check your network connection."
+_jdk_12_version="12.0.2-sapmchn"
+if ! sdk use java $_jdk_12_version >/dev/null; then
+  __debug $DEBUG "Required Java 12 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk $_jdk_12_version; then
     exit 1
   fi
-  sdk use java $_java_12_sdk
+  sdk use java $_jdk_12_version >/dev/null
 fi
 _test "12"
 
 __debug $DEBUG "Testing with Java 13..."
-_java_13_sdk="13.0.2-sapmchn"
-if ! sdk use java $_java_13_sdk >/dev/null; then
-  __debug $DEBUG "Required Java 13 SDK does not exists. It will be downloaded..."
-  if ! sdk install java $_java_13_sdk >/dev/null; then
-    __echo red "Could not download Java sdk. Check your network connection."
+_jdk_13_version="13.0.2-sapmchn"
+if ! sdk use java $_jdk_13_version >/dev/null; then
+  __debug $DEBUG "Required Java 13 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk $_jdk_13_version; then
     exit 1
   fi
-  sdk use java $_java_13_sdk
+  sdk use java $_jdk_13_version >/dev/null
 fi
 _test "13"
 
 __debug $DEBUG "Testing with Java 14..."
-_java_14_sdk="14.0.2-sapmchn"
-if ! sdk use java $_java_14_sdk >/dev/null; then
-  __debug $DEBUG "Required Java 14 SDK does not exists. It will be downloaded..."
-  if ! sdk install java $_java_14_sdk >/dev/null; then
-    __echo red "Could not download Java sdk. Check your network connection."
+_jdk_14_version="14.0.2-sapmchn"
+if ! sdk use java $_jdk_14_version >/dev/null; then
+  __debug $DEBUG "Required Java 14 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk $_jdk_14_version; then
     exit 1
   fi
-  sdk use java $_java_14_sdk
+  sdk use java $_jdk_14_version >/dev/null
 fi
 _test "14"
 
 __debug $DEBUG "Testing with Java 15..."
-_java_15_sdk="15.0.2-zulu"
-if ! sdk use java $_java_15_sdk >/dev/null; then
-  __debug $DEBUG "Required Java 15 SDK does not exists. It will be downloaded..."
-  if ! sdk install java $_java_15_sdk >/dev/null; then
-    __echo red "Could not download Java sdk. Check your network connection."
+_jdk_15_version="15.0.2-zulu"
+if ! sdk use java $_jdk_15_version >/dev/null; then
+  __debug $DEBUG "Required Java 15 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk $_jdk_15_version; then
     exit 1
   fi
-  sdk use java $_java_15_sdk
+  sdk use java $_jdk_15_version >/dev/null
 fi
 _test "15"
+
+__sdkman_switch_auto_answer_mode false

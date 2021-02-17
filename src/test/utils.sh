@@ -64,6 +64,55 @@ __debug() {
   return 0
 }
 
+__install_sdkman() {
+  install_script=$(curl -s "https://get.sdkman.io")
+
+  if [ -z "$install_script" ]; then
+    __echo red "The SDKMAN! installation script cannot be downloaded. Check your network connection."
+    return 1
+  fi
+
+  bash -c "$install_script" >/dev/null
+  return 0
+}
+
+__install_jdk() {
+  if [ "$#" -ne 1 ]; then
+    __echo yellow "DEV NOT: incorrect usage!"
+    return 1
+  fi
+
+  local jdk_version
+
+  jdk_version=$1
+
+  if ! sdk install java "$jdk_version"; then
+    __echo red "The JDK $jdk_version cannot be downloaded. Check your network connection."
+    return 1
+  fi
+  return 0
+}
+
+__install_maven() {
+  local jdk_version
+
+  jdk_version="8.0.282-zulu"
+
+  if ! sdk use java $jdk_version >/dev/null; then
+    __echo yellow "Required Java JDK does not exists. It will be downloaded..."
+    if ! __install_jdk $jdk_version; then
+      return 1
+    fi
+    sdk use java $jdk_version >/dev/null
+  fi
+
+  if ! sdk install maven 3.6.3; then
+    __echo red "Maven cannot be downloaded. Check your network connection."
+    return 1
+  fi
+  return 0
+}
+
 __import_with_maven() {
   if [ "$#" -ne 1 ]; then
     __echo yellow "DEV NOTE: incorrect usage!"
@@ -75,9 +124,23 @@ __import_with_maven() {
   artifact=$1
 
   if ! mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:get -DremoteRepositories=https://repo.maven.apache.org -Dartifact="$artifact" >/dev/null; then
-    __echo red "Could not download library. Check your network connection."
+    __echo red "Could not download artifact $artifact. Check your network connection."
     return 1
   fi
 
+  return 0
+}
+
+__sdkman_switch_auto_answer_mode() {
+  if [ "$#" -ne 1 ]; then
+    __echo yellow "DEV NOTE: incorrect usage!"
+    return 1
+  fi
+
+  local enable
+
+  enable=$1
+
+  sed -i "s/sdkman_auto_answer=.*/sdkman_auto_answer=$enable/" "$HOME"/.sdkman/etc/config
   return 0
 }
