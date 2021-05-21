@@ -74,8 +74,8 @@ dependencies {
 ## Java
 
 Annotate your annotation processor with <strong>@AnnotationProcessor</strong>. The processor behind this annotation
-checks if your annotation processor is built conforming ([JSP 269](https://www.jcp.org/en/jsr/detail?id=269)). You can 
-either extend your processor with <strong>javax.annotation.processing.AbstractProcessor</strong> or directly implement 
+checks if your annotation processor is built conforming ([JSP 269](https://www.jcp.org/en/jsr/detail?id=269)). You can
+either extend your processor with <strong>javax.annotation.processing.AbstractProcessor</strong> or directly implement
 it with <strong>javax.annotation.processing.Processor</strong>.
 
 ### Non-Modular
@@ -179,10 +179,10 @@ IDEs cannot compile them, even though this mechanism is clearly defined in the M
 
 ### Testing
 
-There is also a problem with the tests. There is no automatic way to change the JDKs, so that both versions of my 
-annotation processor are tested. My solution is a bash script that compiles and tests the classes. It uses 
+There is also a problem with the tests. There is no automatic way to change the JDKs, so that both versions of my
+annotation processor are tested. My solution is a bash script that compiles and tests the classes. It uses
 [SDKMAN!](https://sdkman.io/) and the [Junit Jupiter Engine](https://junit.org/junit5/), which is imported by
-[Maven](https://maven.apache.org/). You can easily run the [test script](src/test/test.sh) with bash from anywhere on 
+[Maven](https://maven.apache.org/). You can easily run the [test script](src/test/test.sh) with bash from anywhere on
 your computer. If you do not have the required Java Libraries installed in the Maven folder, the script downloads them.
 This also applies to the JDKs with SDKMAN!. The mechanism for switching JDKs with SDKMAN! is not perfect for my purpose,
 because it depends on hardcoded Java versions. These can be deleted at any time in the lists of SDKMAN! without me
