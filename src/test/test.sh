@@ -123,27 +123,27 @@ if ! command -v mvn >/dev/null; then
 fi
 __debug "$DEBUG" "All required commands are installed"
 
-_junit_jar="$HOME/.m2/repository/org/junit/platform/junit-platform-console-standalone/1.7.1/junit-platform-console-standalone-1.7.1.jar"
+_junit_jar="$HOME/.m2/repository/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar"
 
 # These are needed because the JUnit Console Standalone does not include the module-info's for its dependencies
-_junit_api_jar="$HOME/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.1/junit-jupiter-api-5.7.1.jar"
-_junit_platform_jar="$HOME/.m2/repository/org/junit/platform/junit-platform-commons/1.7.1/junit-platform-commons-1.7.1.jar"
+_junit_api_jar="$HOME/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.2/junit-jupiter-api-5.7.2.jar"
+_junit_platform_jar="$HOME/.m2/repository/org/junit/platform/junit-platform-commons/1.7.2/junit-platform-commons-1.7.2.jar"
 _opentest_jar="$HOME/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"
 _apiguardian_jar="$HOME/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar"
 
 __debug "$DEBUG" "Check if required libraries are imported, and if not, import them..."
 if [ ! -f "$_junit_jar" ]; then
-  if ! __import_with_maven org.junit.platform:junit-platform-console-standalone:1.7.1:jar; then
+  if ! __import_with_maven org.junit.platform:junit-platform-console-standalone:1.7.2:jar; then
     exit 1
   fi
 fi
 if [ ! -f "$_junit_api_jar" ]; then
-  if ! __import_with_maven org.junit.jupiter:junit-jupiter-api:5.7.1:jar; then
+  if ! __import_with_maven org.junit.jupiter:junit-jupiter-api:5.7.2:jar; then
     exit 1
   fi
 fi
 if [ ! -f "$_junit_platform_jar" ]; then
-  if ! __import_with_maven org.junit.platform:junit-platform-commons:1.7.1:jar; then
+  if ! __import_with_maven org.junit.platform:junit-platform-commons:1.7.2:jar; then
     exit 1
   fi
 fi
