@@ -225,7 +225,6 @@ This Project is licensed under the GNU Lesser General Public License 2.1 or any 
 
 This list includes only Libraries and tools that are explicit imported/used in this project.
 
-
 - [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
   - [Maven](https://github.com/apache/maven)
   - [Maven Compiler Plugin](https://github.com/apache/maven-compiler-plugin)
