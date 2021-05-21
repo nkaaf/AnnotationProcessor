@@ -2,6 +2,9 @@
 
 [![License](https://img.shields.io/github/license/nkaaf/AnnotationProcessor)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)
 
+[![DeepSource](https://deepsource.io/gh/nkaaf/AnnotationProcessor.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/nkaaf/AnnotationProcessor/?ref=repository-badge)
+[![Build Status](https://travis-ci.com/nkaaf/AnnotationProcessor.svg?branch=master)](https://travis-ci.com/nkaaf/AnnotationProcessor)
+
 [![GitHub all releases](https://img.shields.io/github/downloads/nkaaf/AnnotationProcessor/total)](https://github.com/nkaaf/AnnotationProcessor/releases)
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.nkaaf/annotationprocessor)](https://mvnrepository.com/artifact/io.github.nkaaf/annotationprocessor)
