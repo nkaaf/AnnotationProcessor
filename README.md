@@ -15,30 +15,31 @@
 
 ## Index
 
-* [Use Case](#use-case)
-* Usage
-    * [Build System](#build-system)
-        * [Maven](#usage-maven)
-        * [Gradle](#usage-gradle)
-    * [Java](#java)
-        * [Non-Modular](#non-modular)
-        * [Modular (Java 9+)](#modular-java-9)
-            * [Maven](#java-maven)
-            * [Gradle](#java-gradle)
-* [Developing](#developing)
-    * [The Problem with Multi-Release JARs and IDEs](#the-problem-with-multi-release-jars-and-ides)
-    * [Testing](#testing)
-        * [Needed Components](#needed-components)
-        * [Used SDKMAN! JDKs](#used-sdkman-jdks)
-        * [Used Java Libraries](#used-java-libraries)
-* [License](#license)
-    * [Licenses of used Libraries](#licenses-of-used-libraries-and-tools)
+- [Use Case](#use-case)
+- Usage
+  - [Build System](#build-system)
+    - [Maven](#usage-maven)
+    - [Gradle](#usage-gradle)
+  - [Java](#java)
+    - [Non-Modular](#non-modular)
+    - [Modular (Java 9+)](#modular-java-9)
+      - [Maven](#java-maven)
+      - [Gradle](#java-gradle)
+- [Developing](#developing)
+  - [The Problem with Multi-Release JARs and IDEs](#the-problem-with-multi-release-jars-and-ides)
+  - [Testing](#testing)
+    - [Needed Components](#needed-components)
+    - [Used SDKMAN! JDKs](#used-sdkman-jdks)
+    - [Used Java Libraries](#used-java-libraries)
+- [License](#license)
+  - [Licenses of used Libraries](#licenses-of-used-libraries-and-tools)
 
 ## Use Case
 
 In case you want to create a new annotation processor, you can use the annotation <strong>@AnnotationProcessor</strong>,
 to automatically create the required <strong>javax.annotation.processing.Processor</strong> file in the
 <strong>META-INF/services/</strong> directory at compile time.
+
 > ❗ To use this properly, see how to import it into your [Build System](#build-system) and integrate it into [Java](#java) ❗
 
 ## Build System
@@ -80,6 +81,7 @@ it with <strong>javax.annotation.processing.Processor</strong>.
 ### Non-Modular
 
 You only need to import the dependency with your build system.
+
 > [Maven Example](examples/maven/non-modular/pom.xml)
 >
 > [Gradle Example](examples/gradle/non-modular/build.gradle)
@@ -190,27 +192,28 @@ notice it.
 
 #### Needed Components
 
-* [Bash](https://www.gnu.org/software/bash/)
-* [SDKMAN!](https://sdkman.io/)
-* [Maven](https://maven.apache.org/)
+- [Bash](https://www.gnu.org/software/bash/)
+- [SDKMAN!](https://sdkman.io/)
+- [Maven](https://maven.apache.org/)
 
 **[↑ Back to Index](#index)**
 
 #### Used SDKMAN! JDKs
 
-* 8.0.282-zulu
-* 11.0.10-zulu
-* 12.0.2-sapmchn
-* 13.0.2-sapmchn
-* 14.0.2-sapmchn
-* 15.0.2-zulu
+- 8.0.282-zulu
+- 11.0.10-zulu
+- 12.0.2-sapmchn
+- 13.0.2-sapmchn
+- 14.0.2-sapmchn
+- 15.0.2-zulu
 
 **[↑ Back to Index](#index)**
 
 #### Used Java Libraries
 
-* [JUnit Jupiter API 5.7.1](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/5.7.1)
-* [JUnit Platform Console Standalone 1.7.1](https://mvnrepository.com/artifact/org.junit.platform/junit-platform-console-standalone/1.7.1) (Used in testing script for command line support)
+- [JUnit Jupiter API 5.7.1](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/5.7.1)
+- [JUnit Platform Console Standalone 1.7.1](https://mvnrepository.com/artifact/org.junit.platform/junit-platform-console-standalone/1.7.1)
+  (Used in testing script for command line support)
 
 **[↑ Back to Index](#index)**
 
@@ -222,23 +225,23 @@ This Project is licensed under the GNU Lesser General Public License 2.1 or any 
 
 This list includes only Libraries and tools that are explicit imported/used in this project.
 
-* [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt):
-    * [Maven](https://github.com/apache/maven)
-    * [Maven Compiler Plugin](https://github.com/apache/maven-compiler-plugin)
-    * [Maven GPG Plugin](https://github.com/apache/maven-gpg-plugin)
-    * [Maven Jar Plugin](https://github.com/apache/maven-jar-plugin)
-    * [Maven Javadoc Plugin](https://github.com/apache/maven-javadoc-plugin)
-    * [Maven Source Plugin](https://github.com/apache/maven-source-plugin)
-    * [SDKMAN!](https://github.com/sdkman/sdkman-cli)
+- [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
+  - [Maven](https://github.com/apache/maven)
+  - [Maven Compiler Plugin](https://github.com/apache/maven-compiler-plugin)
+  - [Maven GPG Plugin](https://github.com/apache/maven-gpg-plugin)
+  - [Maven Jar Plugin](https://github.com/apache/maven-jar-plugin)
+  - [Maven Javadoc Plugin](https://github.com/apache/maven-javadoc-plugin)
+  - [Maven Source Plugin](https://github.com/apache/maven-source-plugin)
+  - [SDKMAN!](https://github.com/sdkman/sdkman-cli)
 
-* [Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
-    * [Nexus Staging Maven Plugin](https://github.com/sonatype/nexus-maven-plugins/tree/master/staging/maven-plugin)
+- [Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
+  - [Nexus Staging Maven Plugin](https://github.com/sonatype/nexus-maven-plugins/tree/master/staging/maven-plugin)
 
-* [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-v20.html)
-    * [JUnit Jupiter API](https://github.com/junit-team/junit5)
-    * [JUnit Jupiter Console Standalone](https://github.com/junit-team/junit5)
+- [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-v20.html)
+  - [JUnit Jupiter API](https://github.com/junit-team/junit5)
+  - [JUnit Jupiter Console Standalone](https://github.com/junit-team/junit5)
 
-* [GNU Lesser General Public License 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt):
-    * [License Maven Plugin](https://github.com/mojohaus/license-maven-plugin)
+- [GNU Lesser General Public License 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt):
+  - [License Maven Plugin](https://github.com/mojohaus/license-maven-plugin)
 
 **[↑ Back to Index](#index)**
