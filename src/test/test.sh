@@ -24,7 +24,7 @@
 
 _test_dir=$(dirname "${BASH_SOURCE[0]}")
 
-_pwd=$(pwd)
+_pwd=$PWD
 if [ "$_test_dir" == "." ]; then
   _test_dir=$_pwd
 else
@@ -48,26 +48,26 @@ DEBUG=false
 
 while :; do
   case $1 in
-  -h | --help | -\?)
-    echo "$_usage"
-    exit
-    ;;
-  -d | --debug | -X)
-    __echo yellow "Debug mode is active"
-    DEBUG=true
-    break
-    ;;
-  -?*)
-    __echo yellow "Invalid option: $1"
-    echo "$_usage"
-    exit
-    ;;
-  *)
-    if [ "$1" != "" ]; then
-      __echo yellow "WARNING: Not parsing $1"
-    fi
-    break
-    ;;
+    -h | --help | -\?)
+      echo "$_usage"
+      exit
+      ;;
+    -d | --debug | -X)
+      __echo yellow "Debug mode is active"
+      DEBUG=true
+      break
+      ;;
+    -?*)
+      __echo yellow "Invalid option: $1"
+      echo "$_usage"
+      exit
+      ;;
+    *)
+      if [ "$1" != "" ]; then
+        __echo yellow "WARNING: Not parsing $1"
+      fi
+      break
+      ;;
   esac
 done
 
@@ -77,11 +77,11 @@ _sources_dir="$_project_dir/src"
 _out_dir="$_target_dir/testing/out"
 _package_name_dir="io/github/nkaaf/annotationprocessor"
 
-__debug $DEBUG "Generating output directory..."
+__debug "$DEBUG" "Generating output directory..."
 mkdir -p "$_out_dir"
-__debug $DEBUG "Output directory generated"
+__debug "$DEBUG" "Output directory generated"
 
-__debug $DEBUG "Check if required commands are available..."
+__debug "$DEBUG" "Check if required commands are available..."
 if [ -f "$HOME/.bashrc" ]; then
   . "$HOME/.bashrc"
 fi
@@ -121,7 +121,7 @@ if ! command -v mvn >/dev/null; then
     exit 1
   fi
 fi
-__debug $DEBUG "All required commands are installed"
+__debug "$DEBUG" "All required commands are installed"
 
 _junit_jar="$HOME/.m2/repository/org/junit/platform/junit-platform-console-standalone/1.7.1/junit-platform-console-standalone-1.7.1.jar"
 
@@ -131,7 +131,7 @@ _junit_platform_jar="$HOME/.m2/repository/org/junit/platform/junit-platform-comm
 _opentest_jar="$HOME/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"
 _apiguardian_jar="$HOME/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar"
 
-__debug $DEBUG "Check if required libraries are imported, and if not, import them..."
+__debug "$DEBUG" "Check if required libraries are imported, and if not, import them..."
 if [ ! -f "$_junit_jar" ]; then
   if ! __import_with_maven org.junit.platform:junit-platform-console-standalone:1.7.1:jar; then
     exit 1
@@ -157,7 +157,7 @@ if [ ! -f "$_apiguardian_jar" ]; then
     exit 1
   fi
 fi
-__debug $DEBUG "All libraries are (now) imported"
+__debug "$DEBUG" "All libraries are (now) imported"
 
 _compiler_options="-classpath $_junit_jar -encoding UTF-8 -proc:none"
 
@@ -188,20 +188,20 @@ _test() {
   rm -rf "${_out_dir:?}/"*
 
   case $java_version in
-  "6" | "7" | "8")
-    java_options="-source 1.$java_version -target 1.$java_version"
-    ;;
-  "9" | "10" | "11" | "12" | "13" | "14" | "15")
-    java_options="--release $java_version"
-    compile_modules=true
-    ;;
-  *)
-    __echo yellow "DEV NOTE: incorrect Java Version $java_version!"
-    return 1
-    ;;
+    "6" | "7" | "8")
+      java_options="-source 1.$java_version -target 1.$java_version"
+      ;;
+    "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16")
+      java_options="--release $java_version"
+      compile_modules=true
+      ;;
+    *)
+      __echo yellow "DEV NOTE: incorrect Java Version $java_version!"
+      return 1
+      ;;
   esac
 
-  if [ $compile_modules == true ]; then
+  if [ "$compile_modules" == true ]; then
     module_path="$_junit_api_jar:$_junit_platform_jar:$_apiguardian_jar:$_opentest_jar"
 
     if ! eval "javac -d $_out_dir/main $_compiler_options $java_options $_sources_dir/main/java9/module-info.java $_annotation_processor_file $_annotation_processor_processor_file_9"; then
@@ -244,78 +244,62 @@ _test() {
   return 0
 }
 
-__debug $DEBUG "--- Java 6 cannot be tested, because the junit library requires at least Java 8"
+__debug "$DEBUG" "--- Java 6 cannot be tested, because the junit library requires at least Java 8"
 
-__debug $DEBUG "--- Java 7 cannot be tested, because the junit library requires at least Java 8"
+__debug "$DEBUG" "--- Java 7 cannot be tested, because the junit library requires at least Java 8"
 
-__debug $DEBUG "Testing with Java 8..."
+__debug "$DEBUG" "Testing with Java 8..."
 _jdk_8_version="8.0.282-zulu"
-if ! sdk use java $_jdk_8_version >/dev/null; then
-  __debug $DEBUG "Required Java 8 JDK does not exists. It will be downloaded..."
-  if ! __install_jdk $_jdk_8_version; then
+if ! sdk use java "$_jdk_8_version" >/dev/null; then
+  __debug "$DEBUG" "Required Java 8 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk "$_jdk_8_version"; then
     exit 1
   fi
-  sdk use java $_jdk_8_version >/dev/null
+  sdk use java "$_jdk_8_version" >/dev/null
 fi
 _test "8"
 
-__debug $DEBUG "--- Currently (02.2021) there is no Java 9 available at SDKMAN!"
+__debug "$DEBUG" "--- Currently (02.2021) there is no Java 9 available at SDKMAN!"
 
-__debug $DEBUG "--- Currently (02.2021) there is no Java 10 available at SDKMAN!"
+__debug "$DEBUG" "--- Currently (02.2021) there is no Java 10 available at SDKMAN!"
 
-__debug $DEBUG "Testing with Java 11..."
+__debug "$DEBUG" "Testing with Java 11..."
 _jdk_11_version="11.0.10-zulu"
-if ! sdk use java $_jdk_11_version >/dev/null; then
-  __debug $DEBUG "Required Java 11 JDK does not exists. It will be downloaded..."
-  if ! __install_jdk $_jdk_11_version; then
+if ! sdk use java "$_jdk_11_version" >/dev/null; then
+  __debug "$DEBUG" "Required Java 11 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk "$_jdk_11_version"; then
     exit 1
   fi
-  sdk use java $_jdk_11_version >/dev/null
+  sdk use java "$_jdk_11_version" >/dev/null
 fi
 _test "11"
 
-__debug $DEBUG "Testing with Java 12..."
-_jdk_12_version="12.0.2-sapmchn"
-if ! sdk use java $_jdk_12_version >/dev/null; then
-  __debug $DEBUG "Required Java 12 JDK does not exists. It will be downloaded..."
-  if ! __install_jdk $_jdk_12_version; then
-    exit 1
-  fi
-  sdk use java $_jdk_12_version >/dev/null
-fi
-_test "12"
+__debug "$DEBUG" "--- Currently (05.2021) there is no Java 12 available at SDKMAN!"
 
-__debug $DEBUG "Testing with Java 13..."
-_jdk_13_version="13.0.2-sapmchn"
-if ! sdk use java $_jdk_13_version >/dev/null; then
-  __debug $DEBUG "Required Java 13 JDK does not exists. It will be downloaded..."
-  if ! __install_jdk $_jdk_13_version; then
-    exit 1
-  fi
-  sdk use java $_jdk_13_version >/dev/null
-fi
-_test "13"
+__debug "$DEBUG" "--- Currently (05.2021) there is no Java 13 available at SDKMAN!"
 
-__debug $DEBUG "Testing with Java 14..."
-_jdk_14_version="14.0.2-sapmchn"
-if ! sdk use java $_jdk_14_version >/dev/null; then
-  __debug $DEBUG "Required Java 14 JDK does not exists. It will be downloaded..."
-  if ! __install_jdk $_jdk_14_version; then
-    exit 1
-  fi
-  sdk use java $_jdk_14_version >/dev/null
-fi
-_test "14"
+__debug "$DEBUG" "--- Currently (05.2021) there is no Java 14 available at SDKMAN!"
 
-__debug $DEBUG "Testing with Java 15..."
-_jdk_15_version="15.0.2-zulu"
-if ! sdk use java $_jdk_15_version >/dev/null; then
-  __debug $DEBUG "Required Java 15 JDK does not exists. It will be downloaded..."
-  if ! __install_jdk $_jdk_15_version; then
+__debug "$DEBUG" "Testing with Java 15..."
+_jdk_15_version="15.0.2-sapmchn"
+if ! sdk use java "$_jdk_15_version" >/dev/null; then
+  __debug "$DEBUG" "Required Java 15 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk "$_jdk_15_version"; then
     exit 1
   fi
-  sdk use java $_jdk_15_version >/dev/null
+  sdk use java "$_jdk_15_version" >/dev/null
 fi
 _test "15"
+
+__debug "$DEBUG" "Testing with Java 16..."
+_jdk_16_version="16.0.1-zulu"
+if ! sdk use java "$_jdk_16_version" >/dev/null; then
+  __debug "$DEBUG" "Required Java 16 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk "$_jdk_16_version"; then
+    exit 1
+  fi
+  sdk use java "$_jdk_16_version" >/dev/null
+fi
+_test "16"
 
 __sdkman_switch_auto_answer_mode false

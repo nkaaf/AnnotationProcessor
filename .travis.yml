@@ -1,0 +1,10 @@
+language: java
+
+before_script:
+  - rm -rf "$HOME/.sdkman"
+  - curl -s "https://get.sdkman.io" | bash
+  - echo sdkman_auto_answer=true > "$HOME/.sdkman/etc/config"
+  - source "$HOME/.sdkman/bin/sdkman-init.sh"
+  - rm -rf "$HOME/.m2"
+
+script: ./src/test/test.sh
