@@ -50,7 +50,7 @@ to automatically create the required <strong>javax.annotation.processing.Process
 </dependency>
 ```
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 ### <a name="usage-gradle"></a> Gradle
 
@@ -65,7 +65,7 @@ dependencies {
 }
 ```
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 ## Java
 
@@ -81,7 +81,7 @@ You only need to import the dependency with your build system.
 >
 > [Gradle Example](examples/gradle/non-modular/build.gradle)
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 ### Modular (Java 9+)
 
@@ -121,7 +121,7 @@ You need to add the dependency as an annotation path in maven-compiler-plugin.
 
 > [Maven Example](examples/maven/modular/pom.xml)
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 #### <a name="java-gradle"></a> Gradle (6.4+)
 
@@ -159,7 +159,7 @@ compileJava {
 
 > [Gradle Example](examples/gradle/modular/build.gradle)
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 ## Developing
 
@@ -170,7 +170,7 @@ To ensure maximum compatibility, this project must be compiled with Java 9.
 Most IDEs do not support multi-release jars properly. The problem is that the package and class names are identical. The
 IDEs cannot compile them, even though this mechanism is clearly defined in the Maven POM.
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 ### Testing
 
@@ -183,7 +183,7 @@ This also applies to the JDKs with SDKMAN!. The mechanism for switching JDKs wit
 because it depends on hardcoded Java versions. These can be deleted at any time in the lists of SDKMAN! without me
 notice it.
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 #### Needed Components
 
@@ -191,7 +191,7 @@ notice it.
 * [SDKMAN!](https://sdkman.io/)
 * [Maven](https://maven.apache.org/)
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 #### Used SDKMAN! JDKs
 
@@ -202,14 +202,14 @@ notice it.
 * 14.0.2-sapmchn
 * 15.0.2-zulu
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 #### Used Java Libraries
 
 * [JUnit Jupiter API 5.7.1](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/5.7.1)
 * [JUnit Platform Console Standalone 1.7.1](https://mvnrepository.com/artifact/org.junit.platform/junit-platform-console-standalone/1.7.1) (Used in testing script for command line support)
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**
 
 ## License
 
@@ -238,4 +238,4 @@ This list includes only Libraries and tools that are explicit imported/used in t
 * [GNU Lesser General Public License 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt):
     * [License Maven Plugin](https://github.com/mojohaus/license-maven-plugin)
 
-**[⬆ Back to Index](#index)**
+**[↑ Back to Index](#index)**

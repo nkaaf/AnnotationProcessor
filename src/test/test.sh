@@ -191,7 +191,7 @@ _test() {
   "6" | "7" | "8")
     java_options="-source 1.$java_version -target 1.$java_version"
     ;;
-  "9" | "10" | "11" | "12" | "13" | "14" | "15")
+  "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16")
     java_options="--release $java_version"
     compile_modules=true
     ;;
@@ -274,41 +274,14 @@ if ! sdk use java $_jdk_11_version >/dev/null; then
 fi
 _test "11"
 
-__debug $DEBUG "Testing with Java 12..."
-_jdk_12_version="12.0.2-sapmchn"
-if ! sdk use java $_jdk_12_version >/dev/null; then
-  __debug $DEBUG "Required Java 12 JDK does not exists. It will be downloaded..."
-  if ! __install_jdk $_jdk_12_version; then
-    exit 1
-  fi
-  sdk use java $_jdk_12_version >/dev/null
-fi
-_test "12"
+__debug $DEBUG "--- Currently (05.2021) there is no Java 12 available at SDKMAN!"
 
-__debug $DEBUG "Testing with Java 13..."
-_jdk_13_version="13.0.2-sapmchn"
-if ! sdk use java $_jdk_13_version >/dev/null; then
-  __debug $DEBUG "Required Java 13 JDK does not exists. It will be downloaded..."
-  if ! __install_jdk $_jdk_13_version; then
-    exit 1
-  fi
-  sdk use java $_jdk_13_version >/dev/null
-fi
-_test "13"
+__debug $DEBUG "--- Currently (05.2021) there is no Java 13 available at SDKMAN!"
 
-__debug $DEBUG "Testing with Java 14..."
-_jdk_14_version="14.0.2-sapmchn"
-if ! sdk use java $_jdk_14_version >/dev/null; then
-  __debug $DEBUG "Required Java 14 JDK does not exists. It will be downloaded..."
-  if ! __install_jdk $_jdk_14_version; then
-    exit 1
-  fi
-  sdk use java $_jdk_14_version >/dev/null
-fi
-_test "14"
+__debug $DEBUG "--- Currently (05.2021) there is no Java 14 available at SDKMAN!"
 
 __debug $DEBUG "Testing with Java 15..."
-_jdk_15_version="15.0.2-zulu"
+_jdk_15_version="15.0.2-sapmchn"
 if ! sdk use java $_jdk_15_version >/dev/null; then
   __debug $DEBUG "Required Java 15 JDK does not exists. It will be downloaded..."
   if ! __install_jdk $_jdk_15_version; then
@@ -317,5 +290,16 @@ if ! sdk use java $_jdk_15_version >/dev/null; then
   sdk use java $_jdk_15_version >/dev/null
 fi
 _test "15"
+
+__debug $DEBUG "Testing with Java 16..."
+_jdk_16_version="16.0.1-zulu"
+if ! sdk use java $_jdk_16_version >/dev/null; then
+  __debug $DEBUG "Required Java 16 JDK does not exists. It will be downloaded..."
+  if ! __install_jdk $_jdk_16_version; then
+    exit 1
+  fi
+  sdk use java $_jdk_16_version >/dev/null
+fi
+_test "16"
 
 __sdkman_switch_auto_answer_mode false

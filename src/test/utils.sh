@@ -106,7 +106,7 @@ __install_maven() {
     sdk use java $jdk_version >/dev/null
   fi
 
-  if ! sdk install maven 3.6.3; then
+  if ! sdk install maven 3.8.1; then
     __echo red "Maven cannot be downloaded. Check your network connection."
     return 1
   fi
