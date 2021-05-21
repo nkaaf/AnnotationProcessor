@@ -98,12 +98,12 @@ __install_maven() {
 
   jdk_version="8.0.282-zulu"
 
-  if ! sdk use java $jdk_version >/dev/null; then
+  if ! sdk use java "$jdk_version" >/dev/null; then
     __echo yellow "Required Java JDK does not exists. It will be downloaded..."
-    if ! __install_jdk $jdk_version; then
+    if ! __install_jdk "$jdk_version"; then
       return 1
     fi
-    sdk use java $jdk_version >/dev/null
+    sdk use java "$jdk_version" >/dev/null
   fi
 
   if ! sdk install maven 3.8.1; then
