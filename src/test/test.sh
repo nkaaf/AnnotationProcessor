@@ -48,26 +48,26 @@ DEBUG=false
 
 while :; do
   case $1 in
-  -h | --help | -\?)
-    echo "$_usage"
-    exit
-    ;;
-  -d | --debug | -X)
-    __echo yellow "Debug mode is active"
-    DEBUG=true
-    break
-    ;;
-  -?*)
-    __echo yellow "Invalid option: $1"
-    echo "$_usage"
-    exit
-    ;;
-  *)
-    if [ "$1" != "" ]; then
-      __echo yellow "WARNING: Not parsing $1"
-    fi
-    break
-    ;;
+    -h | --help | -\?)
+      echo "$_usage"
+      exit
+      ;;
+    -d | --debug | -X)
+      __echo yellow "Debug mode is active"
+      DEBUG=true
+      break
+      ;;
+    -?*)
+      __echo yellow "Invalid option: $1"
+      echo "$_usage"
+      exit
+      ;;
+    *)
+      if [ "$1" != "" ]; then
+        __echo yellow "WARNING: Not parsing $1"
+      fi
+      break
+      ;;
   esac
 done
 
@@ -188,17 +188,17 @@ _test() {
   rm -rf "${_out_dir:?}/"*
 
   case $java_version in
-  "6" | "7" | "8")
-    java_options="-source 1.$java_version -target 1.$java_version"
-    ;;
-  "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16")
-    java_options="--release $java_version"
-    compile_modules=true
-    ;;
-  *)
-    __echo yellow "DEV NOTE: incorrect Java Version $java_version!"
-    return 1
-    ;;
+    "6" | "7" | "8")
+      java_options="-source 1.$java_version -target 1.$java_version"
+      ;;
+    "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16")
+      java_options="--release $java_version"
+      compile_modules=true
+      ;;
+    *)
+      __echo yellow "DEV NOTE: incorrect Java Version $java_version!"
+      return 1
+      ;;
   esac
 
   if [ "$compile_modules" == true ]; then

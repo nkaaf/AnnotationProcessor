@@ -37,15 +37,15 @@ __echo() {
   local color
 
   case $1 in
-  red)
-    color=$_red
-    ;;
-  green)
-    color=$_green
-    ;;
-  yellow)
-    color=$_yellow
-    ;;
+    red)
+      color=$_red
+      ;;
+    green)
+      color=$_green
+      ;;
+    yellow)
+      color=$_yellow
+      ;;
   esac
 
   echo -e "$color$2$_default"
