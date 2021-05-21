@@ -17,22 +17,22 @@
 
 - [Use Case](#use-case)
 - Usage
-  - [Build System](#build-system)
-    - [Maven](#usage-maven)
-    - [Gradle](#usage-gradle)
-  - [Java](#java)
-    - [Non-Modular](#non-modular)
-    - [Modular (Java 9+)](#modular-java-9)
-      - [Maven](#java-maven)
-      - [Gradle](#java-gradle)
+    - [Build System](#build-system)
+        - [Maven](#usage-maven)
+        - [Gradle](#usage-gradle)
+    - [Java](#java)
+        - [Non-Modular](#non-modular)
+        - [Modular (Java 9+)](#modular-java-9)
+            - [Maven](#java-maven)
+            - [Gradle](#java-gradle)
 - [Developing](#developing)
-  - [The Problem with Multi-Release JARs and IDEs](#the-problem-with-multi-release-jars-and-ides)
-  - [Testing](#testing)
-    - [Needed Components](#needed-components)
-    - [Used SDKMAN! JDKs](#used-sdkman-jdks)
-    - [Used Java Libraries](#used-java-libraries)
+    - [The Problem with Multi-Release JARs and IDEs](#the-problem-with-multi-release-jars-and-ides)
+    - [Testing](#testing)
+        - [Needed Components](#needed-components)
+        - [Used SDKMAN! JDKs](#used-sdkman-jdks)
+        - [Used Java Libraries](#used-java-libraries)
 - [License](#license)
-  - [Licenses of used Libraries](#licenses-of-used-libraries-and-tools)
+    - [Licenses of used Libraries](#licenses-of-used-libraries-and-tools)
 
 ## Use Case
 
@@ -211,37 +211,39 @@ notice it.
 
 #### Used Java Libraries
 
-- [JUnit Jupiter API 5.7.1](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/5.7.1)
-- [JUnit Platform Console Standalone 1.7.1](https://mvnrepository.com/artifact/org.junit.platform/junit-platform-console-standalone/1.7.1)
+- [JUnit Jupiter API 5.7.2](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/5.7.2)
+- [JUnit Platform Console Standalone 1.7.2](https://mvnrepository.com/artifact/org.junit.platform/junit-platform-console-standalone/1.7.2)
   (Used in testing script for command line support)
 
 **[↑ Back to Index](#index)**
 
 ## License
 
-This Project is licensed under the GNU Lesser General Public License 2.1 or any later ([LGPL 2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)).
+This Project is licensed under the GNU Lesser General Public License 2.1 or any
+later ([LGPL 2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)).
 
 #### Licenses of used Libraries and Tools
 
 This list includes only Libraries and tools that are explicit imported/used in this project.
 
 - [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
-  - [Maven](https://github.com/apache/maven)
-  - [Maven Compiler Plugin](https://github.com/apache/maven-compiler-plugin)
-  - [Maven GPG Plugin](https://github.com/apache/maven-gpg-plugin)
-  - [Maven Jar Plugin](https://github.com/apache/maven-jar-plugin)
-  - [Maven Javadoc Plugin](https://github.com/apache/maven-javadoc-plugin)
-  - [Maven Source Plugin](https://github.com/apache/maven-source-plugin)
-  - [SDKMAN!](https://github.com/sdkman/sdkman-cli)
+    - [Maven](https://github.com/apache/maven)
+    - [Maven Compiler Plugin 3.8.1](https://github.com/apache/maven-compiler-plugin)
+    - [Maven GPG Plugin 1.6](https://github.com/apache/maven-gpg-plugin)
+    - [Maven Jar Plugin 3.2.0](https://github.com/apache/maven-jar-plugin)
+    - [Maven Javadoc Plugin 3.2.0](https://github.com/apache/maven-javadoc-plugin)
+    - [Maven Release Plugin 2.5.3](https://github.com/apache/maven-release)
+    - [Maven Source Plugin 3.2.1](https://github.com/apache/maven-source-plugin)
+    - [SDKMAN!](https://github.com/sdkman/sdkman-cli)
 
 - [Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
-  - [Nexus Staging Maven Plugin](https://github.com/sonatype/nexus-maven-plugins/tree/master/staging/maven-plugin)
+    - [Nexus Staging Maven Plugin 1.6.8](https://github.com/sonatype/nexus-maven-plugins/tree/master/staging/maven-plugin)
 
 - [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-v20.html)
-  - [JUnit Jupiter API](https://github.com/junit-team/junit5)
-  - [JUnit Jupiter Console Standalone](https://github.com/junit-team/junit5)
+    - [JUnit Jupiter API 5.7.2](https://github.com/junit-team/junit5)
+    - [JUnit Jupiter Console Standalone 1.7.2](https://github.com/junit-team/junit5)
 
 - [GNU Lesser General Public License 3.0](http://www.gnu.org/licenses/lgpl-3.0.txt):
-  - [License Maven Plugin](https://github.com/mojohaus/license-maven-plugin)
+    - [License Maven Plugin 2.0.0](https://github.com/mojohaus/license-maven-plugin)
 
 **[↑ Back to Index](#index)**
