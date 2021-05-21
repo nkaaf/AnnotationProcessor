@@ -36,13 +36,11 @@
 
 ## Use Case
 
-In case you want to create a new annotation processor, you can use the
-annotation <strong>@AnnotationProcessor</strong>, to automatically create the
-required <strong>javax.annotation.processing.Processor</strong> file in the
+In case you want to create a new annotation processor, you can use the annotation <strong>@AnnotationProcessor</strong>,
+to automatically create the required <strong>javax.annotation.processing.Processor</strong> file in the
 <strong>META-INF/services/</strong> directory at compile time.
 
-> ❗ To use this properly, see how to import it into your
-> [Build System](#build-system) and integrate it into [Java](#java) ❗
+> ❗ To use this properly, see how to import it into your [Build System](#build-system) and integrate it into [Java](#java) ❗
 
 ## Build System
 
@@ -75,12 +73,10 @@ dependencies {
 
 ## Java
 
-Annotate your annotation processor with <strong>@AnnotationProcessor</strong>.
-The processor behind this annotation checks if your annotation processor is
-built conforming ([JSP 269](https://www.jcp.org/en/jsr/detail?id=269)). You can
-either extend your processor with
-<strong>javax.annotation.processing.AbstractProcessor</strong> or directly
-implement it with <strong>javax.annotation.processing.Processor</strong>.
+Annotate your annotation processor with <strong>@AnnotationProcessor</strong>. The processor behind this annotation
+checks if your annotation processor is built conforming ([JSP 269](https://www.jcp.org/en/jsr/detail?id=269)). You can 
+either extend your processor with <strong>javax.annotation.processing.AbstractProcessor</strong> or directly implement 
+it with <strong>javax.annotation.processing.Processor</strong>.
 
 ### Non-Modular
 
@@ -94,16 +90,13 @@ You only need to import the dependency with your build system.
 
 ### Modular (Java 9+)
 
-You need to add the dependencies' module in the
-<strong>module-info.java</strong> of the desired module. In addition, you need
-to set it up in your build system ([Maven](#java-maven)/
-[Gradle](#java-gradle)).
+You need to add the dependencies' module in the <strong>module-info.java</strong> of the desired module. In addition,
+you need to set it up in your build system ([Maven](#java-maven)/ [Gradle](#java-gradle)).
 
 #### <a name="java-maven"></a> Maven
 
-Your module only needs to require the io.github.nkaaf.annotationprocessor
-module. It gets the module java.compiler automatically, so you don't need it
-additionally for your annotation processor.
+Your module only needs to require the io.github.nkaaf.annotationprocessor module. It gets the module java.compiler
+automatically, so you don't need it additionally for your annotation processor.
 
 ```java
 module yourModule {
@@ -139,8 +132,7 @@ You need to add the dependency as an annotation path in maven-compiler-plugin.
 
 Your module must require the io.github.nkaaf.annotationprocessor module.
 
-> ❗ It will NOT automatically get the java.compiler module (different behaviour
-> than in Maven) ❗
+> ❗ It will NOT automatically get the java.compiler module (different behaviour than in Maven) ❗
 
 ```java
 module yourModule {
@@ -150,10 +142,9 @@ module yourModule {
 
 You also need to turn on module path inference and add the release flag.
 
-> ❗ You cannot use JDK 9 because the release flag causes an error with Gradle.
-> JDK 10 causes another error with Gradle, but the Java 10 release flag can be
-> used with JDK 12 and later. See the error tickets linked in example. But you
-> can use the release flag 11, and a JDK 11 ❗
+> ❗ You cannot use JDK 9 because the release flag causes an error with Gradle. JDK 10 causes another error with
+> Gradle, but the Java 10 release flag can be used with JDK 12 and later. See the error tickets linked in example.
+> But you can use the release flag 11, and a JDK 11 ❗
 
 ```groovy
 java {
@@ -181,26 +172,21 @@ To ensure maximum compatibility, this project must be compiled with Java 9.
 
 ### The Problem with Multi-Release JARs and IDEs
 
-Most IDEs do not support multi-release jars properly. The problem is that the
-package and class names are identical. The IDEs cannot compile them, even though
-this mechanism is clearly defined in the Maven POM.
+Most IDEs do not support multi-release jars properly. The problem is that the package and class names are identical. The
+IDEs cannot compile them, even though this mechanism is clearly defined in the Maven POM.
 
 **[↑ Back to Index](#index)**
 
 ### Testing
 
-There is also a problem with the tests. There is no automatic way to change the
-JDKs, so that both versions of my annotation processor are tested. My solution
-is a bash script that compiles and tests the classes. It uses
-[SDKMAN!](https://sdkman.io/) and the
-[Junit Jupiter Engine](https://junit.org/junit5/), which is imported by
-[Maven](https://maven.apache.org/). You can easily run the
-[test script](src/test/test.sh) with bash from anywhere on your computer. If you
-do not have the required Java Libraries installed in the Maven folder, the
-script downloads them. This also applies to the JDKs with SDKMAN!. The mechanism
-for switching JDKs with SDKMAN! is not perfect for my purpose, because it
-depends on hardcoded Java versions. These can be deleted at any time in the
-lists of SDKMAN! without me notice it.
+There is also a problem with the tests. There is no automatic way to change the JDKs, so that both versions of my 
+annotation processor are tested. My solution is a bash script that compiles and tests the classes. It uses 
+[SDKMAN!](https://sdkman.io/) and the [Junit Jupiter Engine](https://junit.org/junit5/), which is imported by
+[Maven](https://maven.apache.org/). You can easily run the [test script](src/test/test.sh) with bash from anywhere on 
+your computer. If you do not have the required Java Libraries installed in the Maven folder, the script downloads them.
+This also applies to the JDKs with SDKMAN!. The mechanism for switching JDKs with SDKMAN! is not perfect for my purpose,
+because it depends on hardcoded Java versions. These can be deleted at any time in the lists of SDKMAN! without me
+notice it.
 
 **[↑ Back to Index](#index)**
 
@@ -233,16 +219,14 @@ lists of SDKMAN! without me notice it.
 
 ## License
 
-This Project is licensed under the GNU Lesser General Public License 2.1 or any
-later ([LGPL 2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)).
+This Project is licensed under the GNU Lesser General Public License 2.1 or any later ([LGPL 2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)).
 
 #### Licenses of used Libraries and Tools
 
-This list includes only Libraries and tools that are explicit imported/used in
-this project.
+This list includes only Libraries and tools that are explicit imported/used in this project.
 
-- [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt):
 
+- [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
   - [Maven](https://github.com/apache/maven)
   - [Maven Compiler Plugin](https://github.com/apache/maven-compiler-plugin)
   - [Maven GPG Plugin](https://github.com/apache/maven-gpg-plugin)
@@ -252,11 +236,9 @@ this project.
   - [SDKMAN!](https://github.com/sdkman/sdkman-cli)
 
 - [Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
-
   - [Nexus Staging Maven Plugin](https://github.com/sonatype/nexus-maven-plugins/tree/master/staging/maven-plugin)
 
 - [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-v20.html)
-
   - [JUnit Jupiter API](https://github.com/junit-team/junit5)
   - [JUnit Jupiter Console Standalone](https://github.com/junit-team/junit5)
 
