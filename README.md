@@ -222,7 +222,7 @@ notice it.
 This Project is licensed under the GNU Lesser General Public License 2.1 or any
 later ([LGPL 2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt)).
 
-#### Licenses of used Libraries and Tools
+### Licenses of used Libraries and Tools
 
 This list includes only Libraries and tools that are explicit imported/used in this project.
 
