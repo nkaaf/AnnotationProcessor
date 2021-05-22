@@ -213,6 +213,8 @@ Also tested with following, at the moment not available, SDKMAN! JDKs:
 - 14.0.2-sapmchn
 - 15.0.2-zulu
 
+**[↑ Back to Index](#index)**
+
 #### Used SDKMAN! Maven
 
 - 3.8.1
