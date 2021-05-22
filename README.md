@@ -48,7 +48,6 @@ to automatically create the required <strong>javax.annotation.processing.Process
 ### <a name="usage-maven"></a> Maven
 
 ```xml
-
 <dependency>
     <groupId>io.github.nkaaf</groupId>
     <artifactId>annotationprocessor</artifactId>
@@ -109,7 +108,6 @@ module yourModule {
 You need to add the dependency as an annotation path in maven-compiler-plugin.
 
 ```xml
-
 <pluin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
