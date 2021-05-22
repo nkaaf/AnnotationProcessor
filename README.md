@@ -30,6 +30,7 @@
     - [Testing](#testing)
         - [Needed Components](#needed-components)
         - [Used SDKMAN! JDKs](#used-sdkman-jdks)
+        - [Used SDKMAN! Maven](#used-sdkman-maven)
         - [Used Java Libraries](#used-java-libraries)
 - [License](#license)
     - [Licenses of used Libraries](#licenses-of-used-libraries-and-tools)
@@ -202,10 +203,23 @@ notice it.
 
 - 8.0.282-zulu
 - 11.0.10-zulu
+- 15.0.2-sapmchn
+- 16.0.1-zulu
+
+Also tested with following, at the moment not available, SDKMAN! JDKs:
+
 - 12.0.2-sapmchn
 - 13.0.2-sapmchn
 - 14.0.2-sapmchn
 - 15.0.2-zulu
+
+#### Used SDKMAN! Maven
+
+- 3.8.1
+
+Also tested with following SDKMAN! Maven Versions:
+
+- 3.6.3
 
 **[↑ Back to Index](#index)**
 
