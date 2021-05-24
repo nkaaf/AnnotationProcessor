@@ -1,7 +1,4 @@
 restylers:
-  - astyle
-  - clang-format
-  - google-java-format
   - prettier-yaml
   - shellharden
   - shfmt
