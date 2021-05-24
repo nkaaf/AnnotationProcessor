@@ -21,10 +21,13 @@
  */
 
 /**
- * Package containing the Java 6-8 processor for {@link io.github.nkaaf.annotationprocessor.annotation.AnnotationProcessor}.
+ * Package containing the Java 6-8 processor for
+ * {@link io.github.nkaaf.annotationprocessor.annotation.AnnotationProcessor}.
  *
  * @author Niklas Kaaf
+ * 
  * @version 1.0
+ * 
  * @since 1.0
  */
 package io.github.nkaaf.annotationprocessor.processor;

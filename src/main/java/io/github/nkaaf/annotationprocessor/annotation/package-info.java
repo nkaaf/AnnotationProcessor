@@ -24,7 +24,9 @@
  * Package containing the annotation for easy creation and verification of annotation processors.
  *
  * @author Niklas Kaaf
+ * 
  * @version 1.0
+ * 
  * @since 1.0
  */
 package io.github.nkaaf.annotationprocessor.annotation;

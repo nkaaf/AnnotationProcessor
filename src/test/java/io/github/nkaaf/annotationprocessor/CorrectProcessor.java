@@ -64,7 +64,8 @@ public class CorrectProcessor implements Processor {
     }
 
     @Override
-    public Iterable<? extends Completion> getCompletions(Element element, AnnotationMirror annotation, ExecutableElement member, String userText) {
+    public Iterable<? extends Completion> getCompletions(Element element, AnnotationMirror annotation,
+            ExecutableElement member, String userText) {
         return null;
     }
 }
