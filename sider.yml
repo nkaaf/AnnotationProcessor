@@ -6,6 +6,6 @@
 linter:
   checkstyle:
     # Exclude module-info.java because checkstyle does not support these files:
-    # https://github:com/checkstyle/checkstyle/issues/8240:
+    # https://github.com/checkstyle/checkstyle/issues/8240:
     exclude:
       - pattern: module-info.java

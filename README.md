@@ -43,6 +43,8 @@ to automatically create the required <strong>javax.annotation.processing.Process
 
 > ❗ To use this properly, see how to import it into your [Build System](#build-system) and integrate it into [Java](#java) ❗
 
+**[↑ Back to Index](#index)**
+
 ## Build System
 
 ### <a name="usage-maven"></a> Maven
@@ -79,6 +81,8 @@ checks if your annotation processor is built conforming ([JSP 269](https://www.j
 either extend your processor with <strong>javax.annotation.processing.AbstractProcessor</strong> or directly implement
 it with <strong>javax.annotation.processing.Processor</strong>.
 
+**[↑ Back to Index](#index)**
+
 ### Non-Modular
 
 You only need to import the dependency with your build system.
@@ -93,6 +97,8 @@ You only need to import the dependency with your build system.
 
 You need to add the dependencies' module in the <strong>module-info.java</strong> of the desired module. In addition,
 you need to set it up in your build system ([Maven](#java-maven)/ [Gradle](#java-gradle)).
+
+**[↑ Back to Index](#index)**
 
 #### <a name="java-maven"></a> Maven
 
@@ -170,6 +176,8 @@ compileJava {
 ## Developing
 
 To ensure maximum compatibility, this project must be compiled with Java 9.
+
+**[↑ Back to Index](#index)**
 
 ### The Problem with Multi-Release JARs and IDEs
 
