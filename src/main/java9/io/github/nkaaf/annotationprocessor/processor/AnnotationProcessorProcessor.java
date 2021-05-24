@@ -53,11 +53,11 @@ import java.util.Set;
  * </p>
  *
  * @author Niklas Kaaf
- * 
+ *
  * @version 1.0
- * 
+ *
  * @see <a href="https://www.jcp.org/en/jsr/detail?id=269">JSP 269</a>
- * 
+ *
  * @since 1.0
  */
 @SupportedAnnotationTypes("io.github.nkaaf.annotationprocessor.annotation.AnnotationProcessor")
