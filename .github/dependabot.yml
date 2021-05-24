@@ -8,34 +8,34 @@ updates:
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     reviewers:
       - "nkaaf"
 
   - package-ecosystem: "maven"
     directory: "examples/maven/non-modular"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     reviewers:
       - "nkaaf"
 
   - package-ecosystem: "maven"
     directory: "examples/maven/modular"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     reviewers:
       - "nkaaf"
 
   - package-ecosystem: "gradle"
     directory: "examples/gradle/non-modular"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     reviewers:
       - "nkaaf"
 
   - package-ecosystem: "gradle"
     directory: "examples/gradle/modular"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     reviewers:
       - "nkaaf"
