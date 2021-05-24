@@ -56,14 +56,11 @@ public class AnnotationProcessorTest {
     private static final String CORRECT_PROCESSOR = "CorrectProcessor";
     private static final String CORRECT_ABSTRACT_PROCESSOR = "CorrectAbstractProcessor";
 
-    private static final String PROCESSOR_SERVICE_FILE = _classes_dir + "/META-INF/services/" + Processor.class.getCanonicalName();
+    private static final String PROCESSOR_SERVICE_FILE = _classes_dir + "/META-INF/services/"
+            + Processor.class.getCanonicalName();
 
-    private static final List<String> OPTIONS = Arrays.asList(
-            "-d", _classes_dir,
-            "-processor", AnnotationProcessorProcessor.class.getCanonicalName(),
-            "-classpath", _classes_dir,
-            "-s", _classes_dir
-    );
+    private static final List<String> OPTIONS = Arrays.asList("-d", _classes_dir, "-processor",
+            AnnotationProcessorProcessor.class.getCanonicalName(), "-classpath", _classes_dir, "-s", _classes_dir);
 
     private static String getJavaFile(String file) {
         return _src_dir + "/test/java/" + PACKAGE_PATH + file + ".java";
@@ -77,7 +74,8 @@ public class AnnotationProcessorTest {
         return PACKAGE_NAME + file;
     }
 
-    private static boolean compile(List<String> sources, DiagnosticCollector<JavaFileObject> diagnosticCollector) throws IOException {
+    private static boolean compile(List<String> sources, DiagnosticCollector<JavaFileObject> diagnosticCollector)
+            throws IOException {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
         Iterable<? extends JavaFileObject> units = fileManager.getJavaFileObjectsFromStrings(sources);
@@ -89,23 +87,29 @@ public class AnnotationProcessorTest {
     private static String getErrorMessage(String classname, ErrorMessage errorMessage) {
         String error = "";
         switch (errorMessage) {
-            case SUPPORTED_OPTIONS:
-                error = classname + " is not overriding javax.annotation.processing.Processor#getSupportedOptions() (ReturnType java.util.Set<java.lang.String>).";
-                break;
-            case SUPPORTED_ANNOTATION_TYPES:
-                error = classname + " is not overriding javax.annotation.processing.Processor#getSupportedAnnotationTypes() (ReturnType java.util.Set<java.lang.String>).";
-                break;
-            case SUPPORTED_SOURCE_VERSION:
-                error = classname + " is not overriding javax.annotation.processing.Processor#getSupportedSourceVersion() (ReturnType javax.lang.model.SourceVersion).";
-                break;
-            case INIT:
-                error = classname + " is not overriding javax.annotation.processing.Processor#init(javax.annotation.processing.ProcessingEnvironment) (ReturnType void).";
-                break;
-            case PROCESS:
-                error = classname + " is not overriding javax.annotation.processing.Processor#process(java.util.Set<? extends javax.lang.model.element.TypeElement>, javax.annotation.processing.RoundEnvironment) (ReturnType boolean).";
-                break;
-            case GET_COMPLETIONS:
-                error = classname + " is not overriding javax.annotation.processing.Processor#getCompletions(javax.lang.model.element.Element, javax.lang.model.element.AnnotationMirror, javax.lang.model.element.ExecutableElement, java.lang.String) (ReturnType java.lang.Iterable<? extends javax.annotation.processing.Completion>).";
+        case SUPPORTED_OPTIONS:
+            error = classname
+                    + " is not overriding javax.annotation.processing.Processor#getSupportedOptions() (ReturnType java.util.Set<java.lang.String>).";
+            break;
+        case SUPPORTED_ANNOTATION_TYPES:
+            error = classname
+                    + " is not overriding javax.annotation.processing.Processor#getSupportedAnnotationTypes() (ReturnType java.util.Set<java.lang.String>).";
+            break;
+        case SUPPORTED_SOURCE_VERSION:
+            error = classname
+                    + " is not overriding javax.annotation.processing.Processor#getSupportedSourceVersion() (ReturnType javax.lang.model.SourceVersion).";
+            break;
+        case INIT:
+            error = classname
+                    + " is not overriding javax.annotation.processing.Processor#init(javax.annotation.processing.ProcessingEnvironment) (ReturnType void).";
+            break;
+        case PROCESS:
+            error = classname
+                    + " is not overriding javax.annotation.processing.Processor#process(java.util.Set<? extends javax.lang.model.element.TypeElement>, javax.annotation.processing.RoundEnvironment) (ReturnType boolean).";
+            break;
+        case GET_COMPLETIONS:
+            error = classname
+                    + " is not overriding javax.annotation.processing.Processor#getCompletions(javax.lang.model.element.Element, javax.lang.model.element.AnnotationMirror, javax.lang.model.element.ExecutableElement, java.lang.String) (ReturnType java.lang.Iterable<? extends javax.annotation.processing.Completion>).";
         }
         return error;
     }
@@ -124,7 +128,8 @@ public class AnnotationProcessorTest {
         assertEquals(Diagnostic.Kind.ERROR, diagnostic.getKind());
         assertTrue(diagnostic.getSource().toString().contains(INCORRECT_ABSTRACT_PROCESSOR));
         assertEquals(COMPILER_PROCESSOR_ERROR_CODE, diagnostic.getCode());
-        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_ABSTRACT_PROCESSOR), ErrorMessage.PROCESS), diagnostic.getMessage(null));
+        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_ABSTRACT_PROCESSOR), ErrorMessage.PROCESS),
+                diagnostic.getMessage(null));
     }
 
     @Test
@@ -165,7 +170,8 @@ public class AnnotationProcessorTest {
         assertEquals(Diagnostic.Kind.ERROR, diagnostic.getKind());
         assertTrue(diagnostic.getSource().toString().contains(INCORRECT_PROCESSOR_SUPPORTED_OPTIONS));
         assertEquals(COMPILER_PROCESSOR_ERROR_CODE, diagnostic.getCode());
-        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_SUPPORTED_OPTIONS), ErrorMessage.SUPPORTED_OPTIONS), diagnostic.getMessage(null));
+        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_SUPPORTED_OPTIONS),
+                ErrorMessage.SUPPORTED_OPTIONS), diagnostic.getMessage(null));
     }
 
     @Test
@@ -182,7 +188,8 @@ public class AnnotationProcessorTest {
         assertEquals(Diagnostic.Kind.ERROR, diagnostic.getKind());
         assertTrue(diagnostic.getSource().toString().contains(INCORRECT_PROCESSOR_SUPPORTED_ANNOTATION_TYPES));
         assertEquals(COMPILER_PROCESSOR_ERROR_CODE, diagnostic.getCode());
-        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_SUPPORTED_ANNOTATION_TYPES), ErrorMessage.SUPPORTED_ANNOTATION_TYPES), diagnostic.getMessage(null));
+        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_SUPPORTED_ANNOTATION_TYPES),
+                ErrorMessage.SUPPORTED_ANNOTATION_TYPES), diagnostic.getMessage(null));
     }
 
     @Test
@@ -199,7 +206,8 @@ public class AnnotationProcessorTest {
         assertEquals(Diagnostic.Kind.ERROR, diagnostic.getKind());
         assertTrue(diagnostic.getSource().toString().contains(INCORRECT_PROCESSOR_SUPPORTED_SOURCE_VERSION));
         assertEquals(COMPILER_PROCESSOR_ERROR_CODE, diagnostic.getCode());
-        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_SUPPORTED_SOURCE_VERSION), ErrorMessage.SUPPORTED_SOURCE_VERSION), diagnostic.getMessage(null));
+        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_SUPPORTED_SOURCE_VERSION),
+                ErrorMessage.SUPPORTED_SOURCE_VERSION), diagnostic.getMessage(null));
     }
 
     @Test
@@ -216,7 +224,8 @@ public class AnnotationProcessorTest {
         assertEquals(Diagnostic.Kind.ERROR, diagnostic.getKind());
         assertTrue(diagnostic.getSource().toString().contains(INCORRECT_PROCESSOR_INIT));
         assertEquals(COMPILER_PROCESSOR_ERROR_CODE, diagnostic.getCode());
-        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_INIT), ErrorMessage.INIT), diagnostic.getMessage(null));
+        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_INIT), ErrorMessage.INIT),
+                diagnostic.getMessage(null));
     }
 
     @Test
@@ -233,7 +242,8 @@ public class AnnotationProcessorTest {
         assertEquals(Diagnostic.Kind.ERROR, diagnostic.getKind());
         assertTrue(diagnostic.getSource().toString().contains(INCORRECT_PROCESSOR_PROCESS));
         assertEquals(COMPILER_PROCESSOR_ERROR_CODE, diagnostic.getCode());
-        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_PROCESS), ErrorMessage.PROCESS), diagnostic.getMessage(null));
+        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_PROCESS), ErrorMessage.PROCESS),
+                diagnostic.getMessage(null));
     }
 
     @Test
@@ -250,7 +260,9 @@ public class AnnotationProcessorTest {
         assertEquals(Diagnostic.Kind.ERROR, diagnostic.getKind());
         assertTrue(diagnostic.getSource().toString().contains(INCORRECT_PROCESSOR_GET_COMPLETIONS));
         assertEquals(COMPILER_PROCESSOR_ERROR_CODE, diagnostic.getCode());
-        assertEquals(getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_GET_COMPLETIONS), ErrorMessage.GET_COMPLETIONS), diagnostic.getMessage(null));
+        assertEquals(
+                getErrorMessage(getCanonicalName(INCORRECT_PROCESSOR_GET_COMPLETIONS), ErrorMessage.GET_COMPLETIONS),
+                diagnostic.getMessage(null));
     }
 
     @Test

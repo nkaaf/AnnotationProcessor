@@ -28,13 +28,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>This annotation is used to declare an annotation processor.</p>
+ * <p>
+ * This annotation is used to declare an annotation processor.
+ * </p>
  *
- * <p>Using this annotation in your annotation processor tests that it is built compliantly and set up correctly. The
- * canonical name of the processor will be added to the service file.</p>
+ * <p>
+ * Using this annotation in your annotation processor tests that it is built compliantly and set up correctly. The
+ * canonical name of the processor will be added to the service file.
+ * </p>
  *
  * @author Niklas Kaaf
+ * 
  * @version 1.0
+ * 
  * @since 1.0
  */
 @Retention(RetentionPolicy.CLASS)
