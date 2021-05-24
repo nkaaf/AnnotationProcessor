@@ -42,22 +42,29 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * <p>Processor for {@link AnnotationProcessor}.</p>
+ * <p>
+ * Processor for {@link AnnotationProcessor}.
+ * </p>
  *
- * <p>This processor checks if your annotation processor is set up compliant to JSP 269. If your processor is set up
+ * <p>
+ * This processor checks if your annotation processor is set up compliant to JSP 269. If your processor is set up
  * correctly, its canonical name will be added to the service file. If the service file does not exist, it will be
- * created.</p>
+ * created.
+ * </p>
  *
  * @author Niklas Kaaf
+ * 
  * @version 1.0
+ * 
  * @see <a href="https://www.jcp.org/en/jsr/detail?id=269">JSP 269</a>
+ * 
  * @since 1.0
  */
 @SupportedAnnotationTypes("io.github.nkaaf.annotationprocessor.annotation.AnnotationProcessor")
 public class AnnotationProcessorProcessor extends AbstractProcessor {
 
-    private static final String PROCESSOR_SERVICE_FILE = "META-INF" + File.separator + "services" +
-            File.separator + Processor.class.getCanonicalName();
+    private static final String PROCESSOR_SERVICE_FILE = "META-INF" + File.separator + "services" + File.separator
+            + Processor.class.getCanonicalName();
 
     boolean generateServiceFile = true;
 
@@ -67,17 +74,21 @@ public class AnnotationProcessorProcessor extends AbstractProcessor {
     /**
      * Check if method exist.
      *
-     * @param methods            {@link List} of methods
-     * @param expectedMethodName Name of the expected method
-     * @param expectedParamSize  Size of parameters
-     * @param expectedParamTypes {@link List} of parameter types
-     * @param expectedReturnType Type of return value
+     * @param methods
+     *            {@link List} of methods
+     * @param expectedMethodName
+     *            Name of the expected method
+     * @param expectedParamSize
+     *            Size of parameters
+     * @param expectedParamTypes
+     *            {@link List} of parameter types
+     * @param expectedReturnType
+     *            Type of return value
      *
      * @return true if method exist, false otherwise
      */
     private static boolean checkIfMethodExists(List<ExecutableElement> methods, String expectedMethodName,
-                                               int expectedParamSize, List<String> expectedParamTypes,
-                                               String expectedReturnType) {
+            int expectedParamSize, List<String> expectedParamTypes, String expectedReturnType) {
         for (ExecutableElement method : methods) {
             if (method.getSimpleName().contentEquals(expectedMethodName)) {
                 if (method.getParameters().size() == expectedParamSize) {
@@ -104,7 +115,8 @@ public class AnnotationProcessorProcessor extends AbstractProcessor {
     /**
      * Close {@link Closeable}.
      *
-     * @param c {@link Closeable}
+     * @param c
+     *            {@link Closeable}
      */
     public static void close(Closeable c) {
         if (c == null) {
@@ -145,7 +157,8 @@ public class AnnotationProcessorProcessor extends AbstractProcessor {
     /**
      * Check if classes annotated with {@link AnnotationProcessor} are build compliant.
      *
-     * @param roundEnv {@link RoundEnvironment}
+     * @param roundEnv
+     *            {@link RoundEnvironment}
      */
     private void checkAnnotatedClasses(RoundEnvironment roundEnv) {
         Set<? extends Element> annotatedElements = roundEnv.getElementsAnnotatedWith(this.annotationProcessorType);
@@ -164,39 +177,46 @@ public class AnnotationProcessorProcessor extends AbstractProcessor {
     }
 
     /**
-     * <p>Check if class extends {@link AbstractProcessor} or implements {@link Processor}.</p>
+     * <p>
+     * Check if class extends {@link AbstractProcessor} or implements {@link Processor}.
+     * </p>
      *
-     * <p>The Compiler throws an error if the class neither extends {@link AbstractProcessor} nor implements
-     * {@link Processor}.</p>
+     * <p>
+     * The Compiler throws an error if the class neither extends {@link AbstractProcessor} nor implements
+     * {@link Processor}.
+     * </p>
      *
-     * @param typeElement {@link TypeElement} of the class
+     * @param typeElement
+     *            {@link TypeElement} of the class
      *
-     * @return <ul>
-     * <li>{@link Class#getSimpleName()} of {@link AbstractProcessor} if the class extends AbstractProcessor</li>
-     * <li>{@link Class#getSimpleName()} of {@link Processor} if the class implements Processor</li>
-     * <li>null otherwise</li>
-     * </ul>
+     * @return
+     *         <ul>
+     *         <li>{@link Class#getSimpleName()} of {@link AbstractProcessor} if the class extends
+     *         AbstractProcessor</li>
+     *         <li>{@link Class#getSimpleName()} of {@link Processor} if the class implements Processor</li>
+     *         <li>null otherwise</li>
+     *         </ul>
      */
     private String checkSuperclass(TypeElement typeElement) {
-        TypeMirror abstractProcessor = processingEnv.getElementUtils().getTypeElement(AbstractProcessor.class.getCanonicalName()).asType();
+        TypeMirror abstractProcessor = processingEnv.getElementUtils()
+                .getTypeElement(AbstractProcessor.class.getCanonicalName()).asType();
         boolean isEAbstractProcessor = processingEnv.getTypeUtils().isSubtype(typeElement.asType(), abstractProcessor);
         if (isEAbstractProcessor) {
             return AbstractProcessor.class.getSimpleName();
         }
 
-        TypeMirror iProcessor = processingEnv.getElementUtils().getTypeElement(Processor.class.getCanonicalName()).asType();
+        TypeMirror iProcessor = processingEnv.getElementUtils().getTypeElement(Processor.class.getCanonicalName())
+                .asType();
         boolean isIProcessor = processingEnv.getTypeUtils().isAssignable(typeElement.asType(), iProcessor);
         if (isIProcessor) {
             return Processor.class.getSimpleName();
         }
 
         this.generateServiceFile = false;
-        processingEnv.getMessager().printMessage(
-                Diagnostic.Kind.ERROR,
-                typeElement.getQualifiedName() + " is neither extending " +
-                        AbstractProcessor.class.getCanonicalName() + " nor implementing " +
-                        Processor.class.getCanonicalName() + ". Best Practise is to extend " +
-                        AbstractProcessor.class.getCanonicalName() + ".",
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+                typeElement.getQualifiedName() + " is neither extending " + AbstractProcessor.class.getCanonicalName()
+                        + " nor implementing " + Processor.class.getCanonicalName() + ". Best Practise is to extend "
+                        + AbstractProcessor.class.getCanonicalName() + ".",
                 typeElement);
         return null;
     }
@@ -205,21 +225,21 @@ public class AnnotationProcessorProcessor extends AbstractProcessor {
      * Check if class overrides the {@link Processor#process(Set, RoundEnvironment)} method. If the method is missing,
      * the compiler throws an error.
      *
-     * @param typeElement {@link TypeElement} of the class
+     * @param typeElement
+     *            {@link TypeElement} of the class
      *
      * @see #createMissingMethodError(TypeElement, String, List, String)
      */
     private void checkProcessMethod(TypeElement typeElement) {
         List<ExecutableElement> methods = ElementFilter.methodsIn(typeElement.getEnclosedElements());
         List<String> expectedParamTypes = new ArrayList<>(2);
-        expectedParamTypes.add(Set.class.getCanonicalName() + "<? extends " + TypeElement.class.getCanonicalName() + ">");
+        expectedParamTypes
+                .add(Set.class.getCanonicalName() + "<? extends " + TypeElement.class.getCanonicalName() + ">");
         expectedParamTypes.add(RoundEnvironment.class.getCanonicalName());
         String expectedReturnType = Boolean.TYPE.getCanonicalName();
-        boolean processExists = checkIfMethodExists(methods, "process", 2,
-                expectedParamTypes, expectedReturnType);
+        boolean processExists = checkIfMethodExists(methods, "process", 2, expectedParamTypes, expectedReturnType);
         if (!processExists) {
-            createMissingMethodError(typeElement, "process", expectedParamTypes,
-                    expectedReturnType);
+            createMissingMethodError(typeElement, "process", expectedParamTypes, expectedReturnType);
         }
     }
 
@@ -227,7 +247,8 @@ public class AnnotationProcessorProcessor extends AbstractProcessor {
      * Check if class implementing {@link Processor} overrides all methods. If a method is missing, the compiler will
      * throw an error.
      *
-     * @param typeElement {@link TypeElement} of the class
+     * @param typeElement
+     *            {@link TypeElement} of the class
      *
      * @see #createMissingMethodError(TypeElement, String, List, String)
      */
@@ -239,76 +260,72 @@ public class AnnotationProcessorProcessor extends AbstractProcessor {
 
         expectedMethodName = "getSupportedOptions";
         expectedReturnValue = Set.class.getCanonicalName() + "<" + String.class.getCanonicalName() + ">";
-        boolean overridesSupportedOptions = checkIfMethodExists(methods, expectedMethodName, 0,
-                null, expectedReturnValue);
+        boolean overridesSupportedOptions = checkIfMethodExists(methods, expectedMethodName, 0, null,
+                expectedReturnValue);
         if (!overridesSupportedOptions) {
-            createMissingMethodError(typeElement, expectedMethodName, null,
-                    expectedReturnValue);
+            createMissingMethodError(typeElement, expectedMethodName, null, expectedReturnValue);
         }
 
         expectedMethodName = "getSupportedAnnotationTypes";
         expectedReturnValue = Set.class.getCanonicalName() + "<" + String.class.getCanonicalName() + ">";
-        boolean overridesSupportedAnnotationTypes = checkIfMethodExists(methods, expectedMethodName, 0,
-                null, expectedReturnValue);
+        boolean overridesSupportedAnnotationTypes = checkIfMethodExists(methods, expectedMethodName, 0, null,
+                expectedReturnValue);
         if (!overridesSupportedAnnotationTypes) {
-            createMissingMethodError(typeElement, expectedMethodName, null,
-                    expectedReturnValue);
+            createMissingMethodError(typeElement, expectedMethodName, null, expectedReturnValue);
         }
 
         expectedMethodName = "getSupportedSourceVersion";
         expectedReturnValue = SourceVersion.class.getCanonicalName();
-        boolean overridesSupportedSourceVersion = checkIfMethodExists(methods, expectedMethodName, 0,
-                null, expectedReturnValue);
+        boolean overridesSupportedSourceVersion = checkIfMethodExists(methods, expectedMethodName, 0, null,
+                expectedReturnValue);
         if (!overridesSupportedSourceVersion) {
-            createMissingMethodError(typeElement, expectedMethodName, null,
-                    expectedReturnValue);
+            createMissingMethodError(typeElement, expectedMethodName, null, expectedReturnValue);
         }
 
         expectedMethodName = "init";
         expectedReturnValue = Void.TYPE.getCanonicalName();
         expectedParamTypes.add((ProcessingEnvironment.class.getCanonicalName()));
-        boolean overridesInit = checkIfMethodExists(methods, expectedMethodName, 1,
-                expectedParamTypes, expectedReturnValue);
+        boolean overridesInit = checkIfMethodExists(methods, expectedMethodName, 1, expectedParamTypes,
+                expectedReturnValue);
         if (!overridesInit) {
-            createMissingMethodError(typeElement, expectedMethodName, expectedParamTypes,
-                    expectedReturnValue);
+            createMissingMethodError(typeElement, expectedMethodName, expectedParamTypes, expectedReturnValue);
         }
 
         checkProcessMethod(typeElement);
 
         expectedMethodName = "getCompletions";
-        expectedReturnValue = Iterable.class.getCanonicalName() + "<? extends " + Completion.class.getCanonicalName() + ">";
+        expectedReturnValue = Iterable.class.getCanonicalName() + "<? extends " + Completion.class.getCanonicalName()
+                + ">";
         expectedParamTypes.clear();
         expectedParamTypes.add(Element.class.getCanonicalName());
         expectedParamTypes.add(AnnotationMirror.class.getCanonicalName());
         expectedParamTypes.add(ExecutableElement.class.getCanonicalName());
         expectedParamTypes.add(String.class.getCanonicalName());
-        boolean overridesGetCompletions = checkIfMethodExists(methods, expectedMethodName, 4,
-                expectedParamTypes, expectedReturnValue);
+        boolean overridesGetCompletions = checkIfMethodExists(methods, expectedMethodName, 4, expectedParamTypes,
+                expectedReturnValue);
         if (!overridesGetCompletions) {
-            createMissingMethodError(typeElement, expectedMethodName, expectedParamTypes,
-                    expectedReturnValue);
+            createMissingMethodError(typeElement, expectedMethodName, expectedParamTypes, expectedReturnValue);
         }
     }
 
     /**
      * Throws a compiler error and prevents service file from being created.
      *
-     * @param typeElement {@link TypeElement} of the class
-     * @param methodName  Name of the method not overridden
-     * @param paramTypes  {@link List} with parameter types of the method
-     * @param returnValue {@link Class#getCanonicalName()} of the return value
+     * @param typeElement
+     *            {@link TypeElement} of the class
+     * @param methodName
+     *            Name of the method not overridden
+     * @param paramTypes
+     *            {@link List} with parameter types of the method
+     * @param returnValue
+     *            {@link Class#getCanonicalName()} of the return value
      */
     private void createMissingMethodError(TypeElement typeElement, String methodName, List<String> paramTypes,
-                                          String returnValue) {
+            String returnValue) {
         this.generateServiceFile = false;
         StringBuilder errorMsg = new StringBuilder();
-        errorMsg.append(typeElement.getQualifiedName())
-                .append(" is not overriding ")
-                .append(Processor.class.getCanonicalName())
-                .append("#")
-                .append(methodName)
-                .append("(");
+        errorMsg.append(typeElement.getQualifiedName()).append(" is not overriding ")
+                .append(Processor.class.getCanonicalName()).append("#").append(methodName).append("(");
         if (paramTypes != null) {
             for (int i = 0; i < paramTypes.size(); i++) {
                 errorMsg.append(paramTypes.get(i));
@@ -317,13 +334,8 @@ public class AnnotationProcessorProcessor extends AbstractProcessor {
                 }
             }
         }
-        errorMsg.append(") (ReturnType ")
-                .append(returnValue)
-                .append(").");
-        processingEnv.getMessager().printMessage(
-                Diagnostic.Kind.ERROR,
-                errorMsg,
-                typeElement);
+        errorMsg.append(") (ReturnType ").append(returnValue).append(").");
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, errorMsg, typeElement);
     }
 
     /**
@@ -332,8 +344,8 @@ public class AnnotationProcessorProcessor extends AbstractProcessor {
     private void writeToServiceFile() {
         OutputStream outputStream;
         try {
-            FileObject newServiceFile = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT,
-                    "", PROCESSOR_SERVICE_FILE);
+            FileObject newServiceFile = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "",
+                    PROCESSOR_SERVICE_FILE);
             outputStream = newServiceFile.openOutputStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
